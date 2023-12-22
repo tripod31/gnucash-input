@@ -13,10 +13,11 @@ CSVファイルからGnuCashにインポートできます。しかし、GnuCash
 2. pythonでExcelファイルをGnuCashインスポート形式CSVに変換(このプログラムを使用)
 3. GnuCashでCSVファイルをインポート  
 CSVの列名とGnuCashのデータ項目の対応をリストボックスから設定する必要があります。
-![gnucash-input](https://github.com/tripod31/GnuCash-input/assets/6335693/4896bf18-b110-48d7-b737-93b6e8ba5c6d)
+![gnucash-input](https://github.com/tripod31/GnuCash-input/assets/6335693/b4af2bad-e819-4bbd-b63f-08c3032fd323)
 
 ## Excelファイル
-サンプルはinput.xlsxです。各列は以下の通り  
+サンプルはinput.xlsxです。各列は以下の通り。  
+これ以外の列名の列があれば出力ファイルにそのまま出力されます。  
 |列名|
 |--|
 |番号|

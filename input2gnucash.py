@@ -7,7 +7,13 @@ import common
 """
 振替伝票入力形式excel→gnucash形式excel/csvに変換
 input.xlsx→gnucash.xslx/gnucash.csv
+入力ファイルに基本の列名以外の列名があれば、出力ファイルにも同じ列名、値で出力する
 """
+
+#入力ファイルの基本の列名
+BASIC_INPUT_COLS=[
+        "日付","番号","説明","貸方勘定科目","借方勘定科目","金額"
+]
 
 class AppException(Exception):
     pass
@@ -15,6 +21,8 @@ class AppException(Exception):
 class Process:
     records=[]
     errors=[]
+    additional_cols=[]  #入力ファイルの基本列名以外の列名
+    empty_row = {}      #出力ファイルの１行分のdict。値は空
 
     def check_date(self,date):
         ret = True
@@ -39,9 +47,12 @@ class Process:
             self.errors.append(f"{row['日付']}:説明が入っていません")
 
     def process_row(self,row):
+        """
+        row:    入力ファイルの一行
+        """
 
         #貸方データ
-        rec = common.gnucash_empty_row()
+        rec = self.empty_row.copy()
         date = row["日付"]  #Timestamp型 or 文字列:%Y-%m-%d
         if type(date) is pandas.Timestamp: 
             date = date.strftime('%Y-%m-%d')   #文字列に変換
@@ -50,24 +61,38 @@ class Process:
         rec["説明"] =row["説明"]
         rec["勘定科目"] = row["貸方勘定科目"]
         rec["金額"] = row["金額"]
+        rec["照合済"] = "清"
+        for col in self.additional_cols:
+            rec[col]=row[col]
         self.records.append(rec)
-
+    
         #借方データ
-        rec =common.gnucash_empty_row()
+        rec =self.empty_row.copy()
         rec["日付"] =date  
         rec["番号"] =row["番号"]
         rec["説明"] =row["説明"]
         rec["勘定科目"]=row["借方勘定科目"]
         rec["金額"] = -row["金額"]
+        rec["照合済"] = "清"        
+        for col in self.additional_cols:
+            rec[col]=row[col]       
         self.records.append(rec) 
 
     def main(self):
+        #入力ファイル読み込み
         df = pandas.read_excel(
             args.in_excel_file,
-            usecols="A:F",
             na_filter=False)    #空白セルをnanに変換しない
         
-        #check rows
+        #入力ファイルの列名で基本の列名以外の列名を、出力ファイルの列に追加
+        for col in df.columns.to_list():
+            if not col in BASIC_INPUT_COLS:
+                self.additional_cols.append(col)
+        output_cols = common.gnucash_cols.copy()
+        output_cols += self.additional_cols
+        self.empty_row = dict(list(map(lambda x:(x,""),output_cols)))
+
+        #入力ファイルの各行をチェック
         self.errors.clear()
         for index,row in df.iterrows():
             no = row["番号"]
@@ -78,7 +103,7 @@ class Process:
         if len(self.errors)>0:
             raise AppException("データチェックエラー")
 
-        #process rows       
+        #入力ファイルの各行を処理
         self.records.clear()
         for index,row in df.iterrows():
             no = row["番号"]
