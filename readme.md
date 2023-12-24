@@ -5,12 +5,12 @@ CSVファイルからGnuCashにインポートできます。しかし、GnuCash
 ## 動作確認環境
 * Windows11
 * python3.11.1
-* GnuCash5.4
+* GnuCash5.5
 ## 必要ライブラリ
 * pandas
 ## 取引の入力手順 
 1. Excelで取引を振替伝票形式（独自形式）のExcelファイルへ入力 
-2. pythonでExcelファイルをGnuCashインスポート形式CSVに変換(このプログラムを使用)
+2. pythonでExcelファイルをGnuCashインポート形式CSVに変換(このプログラムを使用)
 3. GnuCashでCSVファイルをインポート  
 CSVの１行目をスキップする設定にします。  
 CSVの列名とGnuCashのデータ項目の対応をリストボックスから設定する必要があります。  
