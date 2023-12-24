@@ -50,10 +50,11 @@ class Process:
 
     def process_row(self,row):
         """
+        入力ファイルの一行を変換し出力
         row:    入力ファイルの一行
         """
 
-        #貸方データ
+        #出力データ一行分
         rec = self.empty_row.copy()
         date = row["日付"]  #Timestamp型 or 文字列:%Y-%m-%d
         if type(date) is pandas.Timestamp: 
@@ -61,25 +62,16 @@ class Process:
         rec["日付"] =date
         rec["番号"] =row["番号"]
         rec["説明"] =row["説明"]
-        rec["勘定科目"] = row["貸方勘定科目"]
+        rec["勘定科目"] = row["借方勘定科目"]
         rec["金額"] = row["金額"]
         rec["照合済"] = "清"
+        rec["資金移動先勘定科目"] = row["貸方勘定科目"]
+        rec["資金移動先金額"] = row["金額"]
+        rec["資金移動先照合済"] = "清"        
         for col in self.additional_cols:
             rec[col]=row[col]
         self.records.append(rec)
     
-        #借方データ
-        rec =self.empty_row.copy()
-        rec["日付"] =date  
-        rec["番号"] =row["番号"]
-        rec["説明"] =row["説明"]
-        rec["勘定科目"]=row["借方勘定科目"]
-        rec["金額"] = -row["金額"]
-        rec["照合済"] = "清"        
-        for col in self.additional_cols:
-            rec[col]=row[col]       
-        self.records.append(rec) 
-
     def main(self):
         #入力ファイル読み込み
         df = pandas.read_excel(
@@ -117,7 +109,7 @@ class Process:
         df = pandas.DataFrame(self.records)
         df.to_excel(args.out_excel_file,index=False)
         df.to_csv(args.out_csv_file,index=False)
-        print("{}行読み込みました".format(int(len(self.records)/2)))
+        print("{}行出力しました".format(len(self.records)))
 
 if __name__ == '__main__':
     #引数

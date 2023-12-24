@@ -1,7 +1,7 @@
 # GnuCash-input
 GnuCashは、フリーの会計ソフトです。https://www.gnucash.org/  
 GnuCashの取引データをExcelで入力するために作成しました。GnuCashの取引入力画面で入力するより効率的だと思います。Excelで入力すれば、同じパターンの取引データをコピーして入力する等できて効率的です。  
-CSVファイルからGnuCashにインポートできます。しかし、GnuCash形式のCSVは貸方と借方が２行に分かれており、データを作成しづらいです。このため、振替伝票形式（独自形式）のExcelファイルをpythonでGnuCash形式に変換するプログラムを作成しました。
+CSVファイルからGnuCashにインポートできます。しかし、GnuCash形式のCSVは貸方と借方の金額を別の列に書く等、データが作成しづらいです。このため、振替伝票形式（独自形式）のExcelファイルをpythonでGnuCash形式に変換するプログラムを作成しました。
 ## 動作確認環境
 * Windows11
 * python3.11.1
@@ -12,8 +12,23 @@ CSVファイルからGnuCashにインポートできます。しかし、GnuCash
 1. Excelで取引を振替伝票形式（独自形式）のExcelファイルへ入力 
 2. pythonでExcelファイルをGnuCashインスポート形式CSVに変換(このプログラムを使用)
 3. GnuCashでCSVファイルをインポート  
-CSVの列名とGnuCashのデータ項目の対応をリストボックスから設定する必要があります。
-![gnucash-input](https://github.com/tripod31/GnuCash-input/assets/6335693/b4af2bad-e819-4bbd-b63f-08c3032fd323)
+CSVの１行目をスキップする設定にします。  
+CSVの列名とGnuCashのデータ項目の対応をリストボックスから設定する必要があります。  
+列名は以下の通りで、CSVの列名とGnuCashのデータ項目名は同じです。  
+
+|列名|
+|--|
+|日付|
+|番号|
+|説明|
+|勘定科目|
+|金額|
+|照合済|
+|資金移動先勘定科目|
+|資金移動先金額|
+|資金移動先照合済|
+
+![gnucash-input](https://github.com/tripod31/gnucash-input/assets/6335693/839e82ba-f852-4469-bb7a-c1da6d8dadd5)
 
 ## Excelファイル
 サンプルはinput.xlsxです。各列は以下の通り。  
@@ -22,8 +37,8 @@ CSVの列名とGnuCashのデータ項目の対応をリストボックスから�
 |--|
 |番号|
 |日付|
-|貸方勘定科目|
 |借方勘定科目|
+|貸方勘定科目|
 |金額|
 |説明|
 ## 実行方法
