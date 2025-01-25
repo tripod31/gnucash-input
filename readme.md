@@ -5,7 +5,7 @@ GnuCashには元から取引データのCSVをインポートする機能があ�
 ## 動作確認環境
 * Windows11
 * python3.11.1
-* GnuCash5.5
+* GnuCash5.6
 ## 必要ライブラリ
 * pandas
 ## 取引の入力手順 
@@ -29,6 +29,8 @@ CSVの列名とGnuCashのデータ項目の対応をリストボックスから�
 |資金移動先照合済|
 
 ![gnucash-input](https://github.com/tripod31/gnucash-input/assets/6335693/839e82ba-f852-4469-bb7a-c1da6d8dadd5)
+
+設定を名前をつけて保存できます。  
 
 ## Excelファイル
 サンプルはinput.xlsxです。各列は以下の通り。  
