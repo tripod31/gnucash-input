@@ -14,17 +14,18 @@ input.xlsx→gnucash.xslx/gnucash.csv
 
 #入力ファイルの基本の列名
 BASIC_INPUT_COLS=[
-        "日付","番号","説明","貸方勘定科目","借方勘定科目","金額"
+    "日付","番号","説明","貸方勘定科目","借方勘定科目","金額"
 ]
 
 class AppException(Exception):
     pass
 
 class Process:
-    records=[]
-    errors=[]
-    additional_cols=[]  #入力ファイルの基本列名以外の列名
-    empty_row = {}      #出力ファイルの１行分のdict。値は空
+    def __init__(self):
+        self.records=[]
+        self.errors=[]
+        self.additional_cols=[]  #入力ファイルの基本列名以外の列名
+        self.empty_row = {}      #出力ファイルの１行分のdict。値は空
 
     def check_date(self,date):
         ret = True
