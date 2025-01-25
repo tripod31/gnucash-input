@@ -1,7 +1,7 @@
 # GnuCash-input
 GnuCashは、フリーの会計ソフトです。https://www.gnucash.org/  
 GnuCashの取引データをExcelで入力するために作成しました。GnuCashの取引入力画面で入力するより効率的だと思います。Excelで入力すれば、同じパターンの取引データをコピーして入力する等できて効率的です。  
-GnuCashには元から取引データのCSVをインポートする機能があります。しかし、GnuCash形式の取引データのCSVは、貸方と借方の金額を別の列に書く等データが作成しづらいです。このため、振替伝票形式（独自形式）のExcelファイルをpythonでGnuCash形式に変換するプログラムを作成しました。ExceLファイルの編集は、私はExcel互換のLibreOfficeCalcを使用しています。
+GnuCashには元から取引データのCSVをインポートする機能があります。しかし、GnuCash形式の取引データのCSVは、貸方と借方の金額を別の列に書く等データが作成しづらいです。このため、振替伝票形式（独自形式）のExcelファイルをpythonでGnuCash形式に変換するプログラムを作成しました。Excelファイルの編集は、私はExcel互換のLibreOfficeCalcを使用しています。
 ## 動作確認環境
 * Windows11
 * python3.11.1
@@ -28,9 +28,9 @@ CSVの列名とGnuCashのデータ項目の対応をリストボックスから�
 |資金移動先金額|
 |資金移動先照合済|
 
-![gnucash-input](https://github.com/tripod31/gnucash-input/assets/6335693/839e82ba-f852-4469-bb7a-c1da6d8dadd5)
+![gnucash-input](https://i.imgur.com/Jyxh0Mn.png)
 
-設定を名前をつけて保存できます。  
+以上の設定を、名前をつけて保存できます。次回からは保存した設定を読み込めばOKです。  
 
 ## Excelファイル
 サンプルはinput.xlsxです。各列は以下の通り。  
