@@ -1,4 +1,5 @@
 /.vscode
-*.pyc
 /data
+/image
+*.pyc
 *.xlsx#
