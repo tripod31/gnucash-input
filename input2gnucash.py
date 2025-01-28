@@ -83,9 +83,11 @@ class Process:
         for col in df.columns.to_list():
             if not col in BASIC_INPUT_COLS:
                 self.additional_cols.append(col)
+        if len(self.additional_cols)>0:
+            print(f"以下の列名を追加します。[{','.join(self.additional_cols)}]\n")
         output_cols = common.gnucash_cols.copy()
         output_cols += self.additional_cols
-        self.empty_row = dict(list(map(lambda x:(x,""),output_cols)))
+        self.empty_row = {col:"" for col in output_cols}
 
         #入力ファイルの各行をチェック
         self.errors.clear()
@@ -110,7 +112,7 @@ class Process:
         df = pandas.DataFrame(self.records)
         df.to_excel(args.out_excel_file,index=False)
         df.to_csv(args.out_csv_file,index=False)
-        print("{}行出力しました".format(len(self.records)))
+        print(f"{len(self.records)}行出力しました")
 
 if __name__ == '__main__':
     #引数
@@ -120,7 +122,7 @@ if __name__ == '__main__':
     parser.add_argument('out_csv_file',     help="gnucash形式のCSVファイル")
     
     args=parser.parse_args()
-    print("引数:{}".format(args))
+    print(f"引数:{args}")
     proc=Process()
     try:
         proc.main()
