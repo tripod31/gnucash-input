@@ -8,6 +8,10 @@ GnuCashには元から取引データのCSVをインポートする機能があ�
 * GnuCash5.8
 ## 必要ライブラリ
 * pandas
+```
+>pip install pandas
+```
+でインストールしておきます。
 ## 取引の入力手順 
 1. Excelで取引を振替伝票形式（独自形式）のExcelファイルへ入力 
 2. pythonでExcelファイルをGnuCashインポート形式CSVに変換(このプログラムを使用)
