@@ -4,7 +4,7 @@ GnuCashの取引データをExcelで入力するために作成しました。Gn
 GnuCashには元から取引データのCSVをインポートする機能があります。しかし、GnuCash形式の取引データのCSVは、貸方と借方の金額を別の列に書く等データが作成しづらいです。このため、振替伝票形式（独自形式）のExcelファイルをpythonでGnuCash形式に変換するプログラムを作成しました。Excelファイルの編集は、私はExcel互換のLibreOfficeCalcを使用しています。
 ## 動作確認環境
 * Windows11
-* python3.11.1
+* python3.13.1
 * GnuCash5.8
 ## 必要ライブラリ
 * pandas
@@ -31,7 +31,6 @@ Excelファイルの形式は下記参照
 |貸方勘定科目|
 |金額|
 |説明|
-
 ## 実行方法
 ```
 usage: input2gnucash.py [-h] in_excel_file out_excel_file out_csv_file
@@ -49,10 +48,10 @@ optional arguments:
 >python input2gnucash.py input.xslx gnucash-input.xslx gnucash-input.csv
 ```
 ## GnuCashでCSVファイルをインポートする時の設定
+![gnucash-input](https://i.imgur.com/SiYzWPD.png)
 CSVの１行目をスキップする設定にします（画像中１）。  
 CSVの列名とGnuCashのデータ項目の対応をリストボックスから設定します（画像中２）。  
 列名は以下の通りで、CSVの列名とGnuCashのデータ項目名は同じです。右にスクロールして全ての列名を設定します。  
-
 |列名|
 |--|
 |日付|
@@ -64,7 +63,5 @@ CSVの列名とGnuCashのデータ項目の対応をリストボックスから�
 |資金移動先勘定科目|
 |資金移動先金額|
 |資金移動先照合済|
-
-![gnucash-input](https://i.imgur.com/SiYzWPD.png)
 
 以上の設定を、名前をつけて保存できます（画像中３）。次回インポートする時は、保存した設定を読み込めばOKです。  
