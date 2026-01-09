@@ -76,8 +76,7 @@ class Process:
     def main(self):
         #入力ファイル読み込み
         df = pandas.read_excel(
-            args.in_excel_file,
-            na_filter=False)    #空白セルをnanに変換しない
+            args.in_excel_file)
         
         #入力ファイルの列名で基本の列名以外の列名を、出力ファイルの列に追加
         for col in df.columns.to_list():
@@ -93,8 +92,7 @@ class Process:
         self.errors.clear()
         for index,row in df.iterrows():
             no = row["番号"]
-            if type(no) is int and no==0:
-                #番号が"0"なら読み込みを中止する。空白行を全て読み込んで時間がかかる時があるため
+            if pandas.isna(no):
                 break
             self.check_row(row)
         if len(self.errors)>0:
@@ -104,9 +102,7 @@ class Process:
         self.records.clear()
         for index,row in df.iterrows():
             no = row["番号"]
-            if type(no) is int and no==0:
-                #番号が"0"なら読み込みを中止する。空白行を全て読み込んで時間がかかる時があるため
-                print("番号が0なので読み込みを中止します")
+            if pandas.isna(no):
                 break
             self.process_row(row)
         df = pandas.DataFrame(self.records)

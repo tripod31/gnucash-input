@@ -5,7 +5,7 @@ GnuCashには元から取引データのCSVをインポートする機能があ�
 ## 動作確認環境
 * Windows11
 * python3.13.1
-* GnuCash5.8
+* GnuCash5.12
 ## 必要ライブラリ
 * pandas
 ```
@@ -22,7 +22,6 @@ Excelファイルの形式は下記参照
 ## Excelファイル
 サンプルはinput.xlsxです。各列は以下の通り。  
 これ以外の列名の列があれば出力ファイルにそのまま出力されます。  
-番号が0の行があればその行で読み込みを止めます。空白行を全て読み込んで時間がかかる時があるため。  
 |列名|
 |--|
 |番号|
@@ -48,7 +47,7 @@ optional arguments:
 >python input2gnucash.py input.xslx gnucash-input.xslx gnucash-input.csv
 ```
 ## GnuCashでCSVファイルをインポートする時の設定
-![gnucash-input](https://i.imgur.com/SiYzWPD.png)
+![gnucash-input](https://tripod31.github.io/images/img/gnucash-input-1.png)
 CSVの１行目をスキップする設定にします（画像中１）。  
 CSVの列名とGnuCashのデータ項目の対応をリストボックスから設定します（画像中２）。  
 列名は以下の通りで、CSVの列名とGnuCashのデータ項目名は同じです。右にスクロールして全ての列名を設定します。  
